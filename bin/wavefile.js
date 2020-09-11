@@ -58,6 +58,11 @@ const help = " Usage:\n" +
   "               The input file is not affected.\n" +
   "               Possible values: adpcm, alaw, mulaw\n" +
   "\n" +
+  "  --decompress   Ex: wavefile input.wav --decompress=adpcm output.wav\n" +
+  "               Apply decompression to the file.\n" +
+  "               The input file is not affected.\n" +
+  "               Possible values: adpcm, alaw, mulaw\n" +"\n" +
+  "\n" +
   "  --tag        Ex: wavefile input.wav --tag=ICRD\n" +
   "               Print the value of tag if the tag exists.\n" +
   "\n" +
@@ -140,6 +145,18 @@ for (let command in commands) {
       shouldWrite = true;
     } else if (commands[command] == 'mulaw') {
       wav.toMuLaw();
+      shouldWrite = true;
+    }
+  // --decompress
+  } else if (command == '--decompress') {
+    if (commands[command] == 'adpcm') {
+      wav.fromIMAADPCM();
+      shouldWrite = true;
+    } else if (commands[command] == 'alaw') {
+      wav.fromALaw();
+      shouldWrite = true;
+    } else if (commands[command] == 'mulaw') {
+      wav.fromMuLaw();
       shouldWrite = true;
     }
   // --tag
